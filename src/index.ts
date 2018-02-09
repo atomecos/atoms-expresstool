@@ -1,6 +1,7 @@
-import { ToolsetsDefined } from "atomservicescore";
 import * as express from "express";
-import { AtomsExpressApplication, AtomsExpressToolFactory } from "./lib";
+import { ToolsetsDefined } from "atomservicescore";
+import { AtomsExpressToolFactory } from "./lib";
+import { AtomsExpressApplication } from "./lib/core";
 
 export { express, AtomsExpressApplication };
 

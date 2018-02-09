@@ -19,7 +19,7 @@ describe('atoms.express.tool.factory.js tests', () => {
     });
   });
 
-  describe('#setProcessContext()', () => {
+  describe('#setProcessContext() and #getProcessContext()', () => {
     it('expect to set a process context', () => {
       // arranges
       const instance = AtomsExpressToolFactory();
@@ -57,10 +57,10 @@ describe('atoms.express.tool.factory.js tests', () => {
       const req = { method: "GET", path: "/" };
       const res = {};
       const next = function () { };
-      const composed = instance.compose(composing, arg_a, arg_b);
       const ctx = Util.composeHttpContext(req, res, processContext);
 
       // acts
+      const composed = instance.compose(composing, arg_a, arg_b);
       composed(req, res, next);
 
       // asserts
@@ -77,15 +77,36 @@ describe('atoms.express.tool.factory.js tests', () => {
       const req = { method: "GET", path: "/" };
       const res = {};
       const next = function () { };
-      const composed = instance.compose(composing, arg_a, arg_b);
       const ctx = Util.composeHttpContext(req, res);
 
       // acts
+      const composed = instance.compose(composing, arg_a, arg_b);
       composed(req, res, next);
 
       // asserts
       expect(composing.calledWithExactly(ctx, arg_a, arg_b)).to.be.false;
       expect(composing.calledWithExactly(ctx, arg_a, arg_b, next)).to.be.true;
+    });
+  });
+
+  describe('#useCompose()', () => {
+    it('expect to use a composed function', () => {
+      // arranges
+      const instance = AtomsExpressToolFactory();
+      const composing = sinon.stub();
+      const arg_a = { val: "arg_a" };
+      const arg_b = { val: "arg_b" };
+      const composeSpy = sinon.spy(instance, "compose");
+      const useSpy = sinon.spy(instance, "use");
+
+      // acts
+      instance.useCompose(composing, arg_a, arg_b);
+
+      // asserts
+      expect(composeSpy.calledWithExactly(composing, arg_a, arg_b)).to.be.true;
+      expect(useSpy.called).to.be.true;
+      composeSpy.restore();
+      useSpy.restore();
     });
   });
 });

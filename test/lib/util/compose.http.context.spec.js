@@ -5,7 +5,7 @@ const sinon = require('sinon');
 const composeHttpContext = require('../../../dst/lib/util/compose.http.context').composeHttpContext;
 
 describe('compose.http.context.js tests', () => {
-  describe('#AtomsExpressToolFactory()', () => {
+  describe('#composeHttpContext()', () => {
     it('expect to create an instance of express', () => {
       // arranges
       const request = {

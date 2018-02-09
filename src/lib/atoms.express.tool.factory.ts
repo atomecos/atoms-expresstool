@@ -14,8 +14,13 @@ export const AtomsExpressToolFactory = (toolsetsName: string, properties: any) =
     return (request: Request, response: Response, next: NextFunction) => {
       const ctx = Util.composeHttpContext(request, response, application.getProcessContext());
       const composedArgs = [ctx, ...args, next];
-      composing.apply(ctx, composedArgs);
+      composing.apply(undefined, composedArgs);
     };
+  };
+
+  application.useCompose = (composing: Function, ...args: any[]) => {
+    const composed: any = application.compose(composing, ...args);
+    application.use(composed);
   };
 
   return application;
