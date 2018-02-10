@@ -46,7 +46,8 @@ class HttpContextWrapper implements HttpContext<Request, Response> {
   }
 
   get host() {
-    return this.request.host;
+    const host = this.get("X-Forwarded-Host") || this.get("Host") || this.hostname;
+    return host.split(/\s*,\s*/)[0];
   }
 
   get hostname() {
