@@ -8,6 +8,7 @@ export const composeHttpContext = (request: Request, response: Response, process
 };
 
 class HttpContextWrapper implements HttpContext<Request, Response> {
+  toolname: string;
   process: IProcessContext;
   store: HttpContextStore;
   request: Request;
@@ -103,6 +104,7 @@ class HttpContextWrapper implements HttpContext<Request, Response> {
   }
 
   constructor(request: Request, response: Response, processContext: IProcessContext) {
+    this.toolname = "AtomsExpressTool";
     this.process = processContext;
     this.request = request;
     this.response = response;
@@ -123,5 +125,9 @@ class HttpContextWrapper implements HttpContext<Request, Response> {
 
   append(field: string, value: string) {
     this.response.append(field, value);
+  }
+
+  data() {
+    return this.request.body;
   }
 }

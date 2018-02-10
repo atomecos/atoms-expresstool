@@ -23,11 +23,13 @@
   "license": "MIT",
   "repository": "git+https://github.com/atomecos/atoms-expresstool",
   "dependencies": {
-    "atoms-httpcore": "0.0.1-alpha.9",
+    "atoms-httpcore": "0.0.1-alpha.10",
     "atomservicescore": "0.1.0-alpha.19",
+    "body-parser": "^1.18.2",
     "express": "^4.16.2"
   },
   "devDependencies": {
+    "@types/body-parser": "^1.16.8",
     "@types/express": "^4.11.1",
     "@types/node": "^9.4.4",
     "chai": "^4.1.2",
