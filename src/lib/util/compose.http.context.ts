@@ -1,6 +1,6 @@
 import * as URL from "url";
 import { Request, Response } from "express";
-import { HttpContext, HttpContextStore } from "atoms-httpcore";
+import { HttpContext, HttpContextStore, Util } from "atoms-httpcore";
 import { IProcessContext } from "atomservicescore";
 
 export const composeHttpContext = (request: Request, response: Response, processContext?: IProcessContext): HttpContext<Request, Response> => {
@@ -128,6 +128,9 @@ class HttpContextWrapper implements HttpContext<Request, Response> {
   }
 
   data() {
-    return this.request.body;
+    const body = Util.cloneDeep(this.request.body);
+    const query = Util.cloneDeep(this.query);
+
+    return Object.assign({}, body, query);
   }
 }
