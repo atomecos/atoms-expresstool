@@ -11,12 +11,10 @@ export const AtomsExpressToolFactory = (toolsetsName: string, properties: any) =
   application.getProcessContext = () => Util.getProcessContext(application);
   application.setProcessContext = (processContext: IProcessContext) => Util.setProcessContext(application, processContext);
 
-  application.compose = (composing: Function, ...args: any[]) => {
-    return (request: Request, response: Response, next: NextFunction) => {
-      const ctx = Util.composeHttpContext(request, response, application.getProcessContext());
-      const composedArgs = [ctx, ...args, next];
-      composing.apply(undefined, composedArgs);
-    };
+  application.compose = (composing: Function, ...args: any[]) => (request: Request, response: Response, next: NextFunction) => {
+    const ctx = Util.composeHttpContext(request, response, application.getProcessContext());
+    const composedArgs = [ctx, ...args, next];
+    composing.apply(undefined, composedArgs);
   };
 
   application.useCompose = (composing: Function, ...args: any[]) => {

@@ -3,9 +3,7 @@ import { Request, Response } from "express";
 import { HttpContext, HttpContextStore, Util } from "atoms-httpcore";
 import { IProcessContext } from "atomservicescore";
 
-export const composeHttpContext = (request: Request, response: Response, processContext?: IProcessContext): HttpContext<Request, Response> => {
-  return new HttpContextWrapper(request, response, processContext);
-};
+export const composeHttpContext = (request: Request, response: Response, processContext?: IProcessContext): HttpContext<Request, Response> => new HttpContextWrapper(request, response, processContext);
 
 class HttpContextWrapper implements HttpContext<Request, Response> {
   toolname: string;
@@ -128,8 +126,8 @@ class HttpContextWrapper implements HttpContext<Request, Response> {
   }
 
   data() {
-    const body = Util.cloneDeep(this.request.body);
-    const query = Util.cloneDeep(this.query);
+    const body = Util.cloneDeep(this.request.body || {});
+    const query = Util.cloneDeep(this.query || {});
 
     return Object.assign({}, body, query);
   }
