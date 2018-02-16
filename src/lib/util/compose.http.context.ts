@@ -125,10 +125,10 @@ class HttpContextWrapper implements HttpContext<Request, Response> {
     this.response.append(field, value);
   }
 
-  data() {
+  data(src = {}, ...ext: any[]) {
     const body = Util.cloneDeep(this.request.body || {});
     const query = Util.cloneDeep(this.query || {});
 
-    return Object.assign({}, body, query);
+    return Object.assign(src, body, query, ...ext);
   }
 }

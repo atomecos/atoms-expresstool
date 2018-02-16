@@ -77,6 +77,30 @@ describe('compose.http.context.js tests', () => {
       // asserts
       expect(data).to.deep.equal(expected);
     });
+
+    it('expect to get a data with src and extended', () => {
+      // arranges
+      const request = {
+        method: 'GET',
+        path: '/sample/test/path',
+        query: { id: 1 },
+        body: { val: 'value' }
+      };
+      const response = {};
+      const processContext = {};
+      const context = composeHttpContext(request, response, processContext);
+      const src = { init: 'init' };
+      const ext01 = { ext01: '01' };
+      const ext02 = { ext02: '02' };
+      const expected = { id: 1, init: 'init', val: 'value', ext01: '01', ext02: '02' };
+
+      // acts
+      const data = context.data(src, ext01, ext02);
+
+      // asserts
+      expect(data).to.equal(src);
+      expect(data).to.deep.equal(expected);
+    });
   });
 
   describe('#append()', () => {
