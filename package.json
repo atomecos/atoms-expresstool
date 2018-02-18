@@ -27,7 +27,7 @@
   "repository": "git+https://github.com/atomecos/atoms-expresstool",
   "dependencies": {
     "atoms-httpcore": "0.0.1-alpha.22",
-    "atomservicescore": "0.1.0-alpha.30",
+    "atomservicescore": "0.1.0-alpha.31",
     "body-parser": "^1.18.2",
     "express": "^4.16.2"
   },
